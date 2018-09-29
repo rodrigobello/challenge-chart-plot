@@ -1,0 +1,50 @@
+.TextEditor .CodeMirror {
+  font-family: 'Source Code Pro', monospace;
+}
+
+/**
+ * Customization of Michael Kaminsky's material theme for code mirror.
+ */
+
+.cm-s-material .CodeMirror-gutters {
+  background: #60656E;
+}
+
+.cm-s-material .CodeMirror-linenumber {
+  font-size: 0.8em;
+  padding-top: 0.8em !important;
+  color: #000 !important;
+}
+
+.cm-s-material .CodeMirror-line {
+  padding-left: 0.6em !important;
+  padding-top: 0.5em !important;
+}
+
+.cm-s-material .cm-property { color: #fff; }
+.cm-s-material .cm-string { color: #0EC3D4; }
+.cm-s-material .cm-number { color: #B07DDC; }
+
+/**
+ * Amazing scrollbars (Source: https://gist.github.com/devinrhode2/2573411)
+ */
+
+  div.CodeMirror-vscrollbar::-webkit-scrollbar {
+    width: 8px;
+    background-color: rgba(116, 122, 133, 0);
+    -webkit-border-radius: 100px;
+  }
+
+  div.CodeMirror-vscrollbar::-webkit-scrollbar:hover {
+    background-color: rgba(116, 122, 133, 0.09);
+  }
+
+  div.CodeMirror-vscrollbar::-webkit-scrollbar-thumb:vertical {
+    background: rgba(116, 122, 133, 0.5);
+    -webkit-border-radius: 100px;
+  }
+
+  div.CodeMirror-vscrollbar::-webkit-scrollbar-thumb:vertical:active {
+    background: rgba(116, 122, 133, 0.61);
+    -webkit-border-radius: 100px;
+  }

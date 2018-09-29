@@ -6,12 +6,7 @@
 
   .title-container h1 {
     margin: 0;
-    padding: 0.8em;
-  }
-
-  .input-container {
-    height: 300px;
-    background-color: #2b2f3c;
+    padding: 0.8em 1.2em;
   }
 
   .chart-container {
