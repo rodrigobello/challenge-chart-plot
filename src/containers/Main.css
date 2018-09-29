@@ -1,0 +1,37 @@
+  .title-container {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  .title-container h1 {
+    margin: 0;
+    padding: 0.8em;
+  }
+
+  .input-container {
+    height: 300px;
+    background-color: #2b2f3c;
+  }
+
+  .chart-container {
+    height: 30vh;
+    background-color: #fff;
+  }
+
+  .button-container {
+    height: 10vh;
+    padding: 1em 2em;
+  }
+
+  .button-container button {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 0;
+    background-color: #3e6bf4;
+    color: #fff;
+    padding: 1em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
