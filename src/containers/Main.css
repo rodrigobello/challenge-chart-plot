@@ -23,15 +23,3 @@
     height: 10vh;
     padding: 1em 2em;
   }
-
-  .button-container button {
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    border: 0;
-    background-color: #3e6bf4;
-    color: #fff;
-    padding: 1em;
-    text-transform: uppercase;
-    cursor: pointer;
-  }

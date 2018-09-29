@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './Main.css';
 
+import Button from '../components/UI/Button/Button';
+
 class Main extends Component {
   render() {
     return (
@@ -15,7 +17,7 @@ class Main extends Component {
           {/* <LineChart /> */}
         </div>
         <div className="button-container">
-          {/* <Button /> */}
+          <Button color="primary">Generate Chart</Button>
         </div>
       </div>
     );
