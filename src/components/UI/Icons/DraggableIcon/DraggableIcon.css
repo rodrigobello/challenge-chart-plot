@@ -1,0 +1,16 @@
+div.DraggableIcon {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  display: inline-block;
+  background-color: #050506;
+  width: 1.6em;
+  padding: 2px;
+}
+
+.DraggableIcon div {
+  width: 1.4em;
+  height: 1px;
+  background-color: #60656E;
+  margin: 0.15em auto;
+}
