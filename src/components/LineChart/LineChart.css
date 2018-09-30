@@ -1,0 +1,9 @@
+.linechart-container {
+  margin: 0 auto;
+  width: 90%;
+}
+
+.highcharts-container {
+  width:100% !important;
+  height:100% !important;
+}

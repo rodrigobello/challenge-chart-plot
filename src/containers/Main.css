@@ -1,20 +1,21 @@
-  .title-container {
+  .title-section {
     margin: 0;
     padding: 0;
     width: 100%;
   }
 
-  .title-container h1 {
+  .title-section h1 {
     margin: 0;
     padding: 0.8em 1.2em;
   }
 
-  .chart-container {
-    height: 30vh;
+  .chart-section {
+    padding-top: 3em;
+    width: 100%;
     background-color: #fff;
   }
 
-  .button-container {
+  .button-section {
     height: 10vh;
     padding: 1em 2em;
   }
