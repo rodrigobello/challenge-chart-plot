@@ -24,8 +24,7 @@ export default {
   xAxis: {
     type: 'datetime',
     dateTimeLabelFormats: {
-      hour: '%I %p',
-      minute: '%I:%M %p',
+      day: '%H:%M',
     },
     lineWidth: 2,
     labels: {
@@ -58,32 +57,17 @@ export default {
       },
     },
   },
+  tooltip: {
+    headerFormat: '',
+  },
   credits: {
     enabled: false,
   },
   series: [{
     name: 'Linux Chrome Min Response Time',
-    data: [0.1, 0.2],
-  }, {
-    name: 'Linux Chrome Max Response Time',
-    data: [1.3, 0.9],
-  }, {
-    name: 'Mac Chrome Min Response Time',
-    data: [0.2, 0.1],
-  }, {
-    name: 'Mac Chrome Max Response Time',
-    data: [1.2, 1.0],
-  }, {
-    name: 'Linux Firefox Min Response Time',
-    data: [0.1, 0.3],
-  }, {
-    name: 'Linux Firefox Max Response Time',
-    data: [1.0, 1.4],
-  }, {
-    name: 'Mac Firefox Min Response Time',
-    data: [0.3, 0.2],
-  }, {
-    name: 'Mac Firefox Max Response Time',
-    data: [1.2, 1.1],
+    data: [
+      [0, 0.1],
+      [3600000, 0.2],
+    ],
   }],
 };

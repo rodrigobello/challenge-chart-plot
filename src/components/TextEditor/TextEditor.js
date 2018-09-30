@@ -23,7 +23,7 @@ const resizableOptions = {
   topLeft: false,
 };
 
-const TextEditor = ({ handleCodeInput }) => {
+const TextEditor = ({ handleCharacterInput }) => {
   const options = {
     lineNumbers: true,
     mode: 'application/json',
@@ -39,7 +39,7 @@ const TextEditor = ({ handleCodeInput }) => {
     >
       <CodeMirror
         options={options}
-        onChange={handleCodeInput}
+        onChange={handleCharacterInput}
       />
       <div className="DraggableArea">
         <DraggableIcon />
@@ -49,7 +49,7 @@ const TextEditor = ({ handleCodeInput }) => {
 };
 
 TextEditor.propTypes = {
-  handleCodeInput: PropTypes.func.isRequired,
+  handleCharacterInput: PropTypes.func.isRequired,
 };
 
 export default TextEditor;

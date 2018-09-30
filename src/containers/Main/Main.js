@@ -1,34 +1,35 @@
 import React, { Component } from 'react';
 import './Main.css';
 
-import TextEditor from '../components/TextEditor/TextEditor';
-import LineChart from '../components/LineChart/LineChart';
-import Button from '../components/UI/Button/Button';
+import TextEditor from '../../components/TextEditor/TextEditor';
+import LineChart from '../../components/LineChart/LineChart';
+import Button from '../../components/UI/Button/Button';
+
+import inputParser from './Utils/inputParser';
 
 class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      code: '',
+      input: '',
       events: [],
     };
-    this.handleCodeInput = this.handleCodeInput.bind(this);
+    this.handleCharacterInput = this.handleCharacterInput.bind(this);
     this.generateChart = this.generateChart.bind(this);
   }
 
-  handleCodeInput(code) {
-    this.setState({ code });
+  handleCharacterInput(input) {
+    this.setState({ input });
   }
 
   generateChart() {
-    const { code } = this.state;
-    const events = code.split('\n').map(e => eval(`(${e})`));
+    const { input } = this.state;
+    const events = inputParser(input);
     this.setState({ events });
   }
 
   render() {
     const { events } = this.state;
-    console.log(events);
     return (
       <div className="Main">
         <div className="title-section">
@@ -37,7 +38,7 @@ class Main extends Component {
           </h1>
         </div>
         <div className="input-section">
-          <TextEditor handleCodeInput={this.handleCodeInput} />
+          <TextEditor handleCharacterInput={this.handleCharacterInput} />
         </div>
         <div className="chart-section">
           <LineChart events={events} />
