@@ -7,7 +7,21 @@ import './TextEditor.css';
 
 import 'codemirror/mode/javascript/javascript';
 
+import Resizable from 're-resizable';
 import CodeMirror from 'react-codemirror';
+
+import DraggableIcon from '../UI/Icons/DraggableIcon/DraggableIcon';
+
+const resizableOptions = {
+  bottom: true,
+  top: false,
+  right: false,
+  left: false,
+  topRight: false,
+  bottomRight: false,
+  bottomLeft: false,
+  topLeft: false,
+};
 
 const TextEditor = ({ handleCodeInput }) => {
   const options = {
@@ -16,13 +30,21 @@ const TextEditor = ({ handleCodeInput }) => {
     theme: 'material',
   };
   return (
-    <div className="TextEditor">
+    <Resizable
+      defaultSize={{
+        height: 300,
+      }}
+      enable={resizableOptions}
+      className="TextEditor"
+    >
       <CodeMirror
         options={options}
         onChange={handleCodeInput}
-        className="cahasdusad"
       />
-    </div>
+      <div className="DraggableArea">
+        <DraggableIcon />
+      </div>
+    </Resizable>
   );
 };
 
