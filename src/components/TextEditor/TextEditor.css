@@ -15,6 +15,10 @@ div.DraggableArea {
   transform: translate(-50%,-80%);
 }
 
+.resizing-container div {
+  z-index: 1000;
+}
+
 /**
  * Customization of Michael Kaminsky's material theme for code mirror.
  */
@@ -38,26 +42,28 @@ div.DraggableArea {
 .cm-s-material .cm-string { color: #0EC3D4; }
 .cm-s-material .cm-number { color: #B07DDC; }
 
+
 /**
- * Amazing scrollbars (Source: https://gist.github.com/devinrhode2/2573411)
+ * Customization of Code Mirror simple scrolbar.
  */
 
-  div.CodeMirror-vscrollbar::-webkit-scrollbar {
-    width: 8px;
-    background-color: rgba(116, 122, 133, 0);
-    -webkit-border-radius: 100px;
-  }
+ .CodeMirror-simplescroll-horizontal div, .CodeMirror-simplescroll-vertical div {
+  background: #60656E;
+  -webkit-border-radius: 100px;
+  border: 1px solid #60656E;
+}
 
-  div.CodeMirror-vscrollbar::-webkit-scrollbar:hover {
-    background-color: rgba(116, 122, 133, 0.09);
-  }
+.CodeMirror-simplescroll-vertical {
+  width: 9px;
+  background: #263238;
+}
 
-  div.CodeMirror-vscrollbar::-webkit-scrollbar-thumb:vertical {
-    background: rgba(116, 122, 133, 0.5);
-    -webkit-border-radius: 100px;
-  }
+.CodeMirror-simplescroll-horizontal {
+  bottom: 0; left: 0;
+  height: 9px;
+  background: #263238;
+}
 
-  div.CodeMirror-vscrollbar::-webkit-scrollbar-thumb:vertical:active {
-    background: rgba(116, 122, 133, 0.61);
-    -webkit-border-radius: 100px;
-  }
+div.CodeMirror-scrollbar-filler {
+  display: none !important;
+}

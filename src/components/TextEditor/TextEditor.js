@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import 'codemirror/lib/codemirror.css';
+import 'codemirror/addon/scroll/simplescrollbars';
+import 'codemirror/addon/scroll/simplescrollbars.css';
 import './Themes/Material.css';
 import './TextEditor.css';
 
@@ -28,12 +30,14 @@ const TextEditor = ({ handleCharacterInput }) => {
     lineNumbers: true,
     mode: 'application/json',
     theme: 'material',
+    scrollbarStyle: 'simple',
   };
   return (
     <Resizable
       defaultSize={{
         height: 300,
       }}
+      handleWrapperClass="resizing-container"
       enable={resizableOptions}
       className="TextEditor"
     >

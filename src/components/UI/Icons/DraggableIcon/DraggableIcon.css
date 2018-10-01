@@ -6,6 +6,7 @@ div.DraggableIcon {
   background-color: #050506;
   width: 1.6em;
   padding: 2px;
+  z-index: 10;
 }
 
 .DraggableIcon div {
