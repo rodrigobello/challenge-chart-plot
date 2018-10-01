@@ -6,13 +6,13 @@ import LineChart from '../../components/LineChart/LineChart';
 import Button from '../../components/UI/Button/Button';
 
 import inputParser from './Utils/inputParser';
+import EventsProcessor from './Utils/EventsProcessor';
 
 class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
       input: '',
-      events: [],
     };
     this.handleCharacterInput = this.handleCharacterInput.bind(this);
     this.generateChart = this.generateChart.bind(this);
@@ -24,12 +24,18 @@ class Main extends Component {
 
   generateChart() {
     const { input } = this.state;
-    const events = inputParser(input);
-    this.setState({ events });
+    try {
+      const eventList = inputParser(input, false);
+      const series = (new EventsProcessor(eventList)).requestSeries();
+      this.setState({ series });
+    } catch (error) {
+      console.log(error);
+      this.setState({ error: true });
+    }
   }
 
   render() {
-    const { events } = this.state;
+    const { series } = this.state;
     return (
       <div className="Main">
         <div className="title-section">
@@ -41,7 +47,7 @@ class Main extends Component {
           <TextEditor handleCharacterInput={this.handleCharacterInput} />
         </div>
         <div className="chart-section">
-          <LineChart events={events} />
+          <LineChart series={series} />
         </div>
         <div className="button-section">
           <Button color="primary" onClick={this.generateChart}>

@@ -9,11 +9,15 @@ import './LineChart.css';
 
 class LineChart extends Component {
   shouldComponentUpdate(nextProps) {
-    const { events } = this.props;
-    return events !== nextProps.events;
+    const { series } = this.props;
+    return series !== nextProps.series;
   }
 
   render() {
+    const { series } = this.props;
+    if (series) {
+      config.series = series;
+    }
     return (
       <div className="linechart-container">
         <ReactHighcharts config={config} />
@@ -23,7 +27,20 @@ class LineChart extends Component {
 }
 
 LineChart.propTypes = {
-  events: PropTypes.arrayOf().isRequired,
+  series: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      data: PropTypes.arrayOf(
+        PropTypes.arrayOf(
+          PropTypes.number.isRequired,
+        ).isRequired,
+      ),
+    }),
+  ),
+};
+
+LineChart.defaultProps = {
+  series: null,
 };
 
 export default LineChart;

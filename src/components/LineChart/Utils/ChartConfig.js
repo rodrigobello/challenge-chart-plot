@@ -64,10 +64,8 @@ export default {
     enabled: false,
   },
   series: [{
-    name: 'Linux Chrome Min Response Time',
-    data: [
-      [0, 0.1],
-      [3600000, 0.2],
-    ],
+    type: 'line',
+    name: 'No Data',
+    data: [],
   }],
 };
