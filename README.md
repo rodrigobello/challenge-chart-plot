@@ -2,7 +2,7 @@
 
 Implementation for the [challenge-chart-plot](https://github.com/intelie/challenge-chart-plot)
 
-[DEMO](#)
+[DEMO](https://challenge-chart-plot.herokuapp.com/)
 
 ## Getting Started
 
