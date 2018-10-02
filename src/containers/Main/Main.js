@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import './Main.css';
 
+import PropTypes from 'prop-types';
 import { withAlert } from 'react-alert';
 
 import TextEditor from '../../components/TextEditor/TextEditor';
 import LineChart from '../../components/LineChart/LineChart';
 import Button from '../../components/UI/Button/Button';
 
-import inputParser from './Utils/inputParser';
-import EventsProcessor from './Utils/EventsProcessor';
+import inputParser from '../../lib/utils/inputParser';
+import EventsProcessor from '../../lib/EventsProcessor';
 
 import errorAlertHOC from '../../hoc/errorAlertHOC';
 
@@ -30,11 +31,11 @@ class Main extends Component {
     const { input } = this.state;
     const { alert } = this.props;
     try {
-      const eventList = inputParser(input, false);
+      const eventList = inputParser(input, true);
       const series = (new EventsProcessor(eventList)).requestSeries();
       this.setState({ series });
     } catch (e) {
-      e.errors.forEach(message => alert.show(<div style={{ fontSize: '12px' }}>{message}</div>));
+      alert.show(<div style={{ fontSize: '12px' }}>{e.message}</div>);
     }
   }
 
@@ -62,5 +63,11 @@ class Main extends Component {
     );
   }
 }
+
+Main.propTypes = {
+  alert: PropTypes.shape({
+    show: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default errorAlertHOC(withAlert(Main));

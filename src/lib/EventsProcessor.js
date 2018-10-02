@@ -1,5 +1,5 @@
 /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-import { EventProcessorException } from './Exceptions';
+import { EventProcessorException } from './exceptions';
 
 const capitalizeString = str => str.toLowerCase()
   .split(' ')
@@ -12,7 +12,6 @@ export default class EventsProcessor {
   constructor(events) {
     this.process = {
       status: 'idle',
-      errors: [],
     };
     this.run(events);
   }
@@ -61,8 +60,7 @@ export default class EventsProcessor {
 
   stop() {
     if (!this.process.data) {
-      this.process.errors.push('No date to display. (Warning: If an event of type "span" was specified, it may have limited the "data" events to 0)');
-      return;
+      throw new EventProcessorException('Unable to process a stop when no event of the type *data* was given. (Warning: If an event of type *span* was specified, it may have limited the *data* events to 0)');
     }
     this.process.status = 'ready';
   }
@@ -72,8 +70,7 @@ export default class EventsProcessor {
       switch (e.type) {
         case 'start':
           if (this.process.status === 'inProcess') {
-            this.process.errors.push(`Event ${i + 1}: Can't start a new streak of events before stopping the previous one.`);
-            break;
+            throw new EventProcessorException(`Event ${i + 1}: Can't start a new streak of events before stopping the previous one.`);
           }
           this.start(e);
           break;
@@ -90,25 +87,20 @@ export default class EventsProcessor {
           this.stop();
           break;
         default:
-          this.process.errors.push(`Event ${i + 1}: Invalid event type '${e.type}'.`);
-          break;
+          throw new EventProcessorException(`Event ${i + 1}: Invalid event type *${e.type}*.`);
       }
     });
   }
 
   validateProcess(type, index) {
     if (this.process.status !== 'inProcess') {
-      this.process.errors.push(`Event ${index + 1}: Unable to process events of type '${type}' before an event of type 'start'.`);
-      throw new EventProcessorException(this.process.errors);
+      throw new EventProcessorException(`Event ${index + 1}: Unable to process events of type *${type}* before an event of type *start*.`);
     }
   }
 
   requestSeries() {
-    if (this.process.errors.length > 0) {
-      throw new EventProcessorException(this.process.errors);
-    }
     if (this.process.status !== 'ready') {
-      console.warn("WARNING: Although it's not necessary, it is a good practice to specify a 'stop' event.");
+      console.warn("WARNING: Although it's not necessary, it is a good practice to specify a *stop* event.");
     }
     const data = Object.keys(this.process.data);
     const series = [];
