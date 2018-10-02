@@ -1,87 +1,69 @@
-# Plotting a chart
+# Challenge Chart Plot (Solution)
 
-In this challenge, you will implement a web application that plots a line chart based on some manually input data.
+Implementation for the [challenge-chart-plot](https://github.com/intelie/challenge-chart-plot)
 
-The input data is a sequence of events. This sequence represents the output of a query, which is omitted for simplicity. The data will be manually input by the final user instead. Based on the input sequence of events, you may generate a time based line chart containing one or more series.
+[DEMO](#)
 
-## Definitions
-An event is a set of keys and values. For this challenge, it will be represented as a JSON. 
+## Getting Started
+
+### Requirements
+
+- npm
+
+### Installing
+
+Clone the repository
 
 ```
-{a: 1, b: 2}
+git clone https://github.com/rodrigobello/challenge-chart-plot
+cd challenge-chart-plot/
 ```
 
-On our system, each event has two mandatory fields: timestamp and type. All other fields are optional.
+Install application dependencies
 
-* *timestamp* field holds the moment that the event refers to. It is formatted as a regular [Javascript timestamp](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTime)
-
-* *type* field holds the definition of what is represented on each event. Its value can be one of the following:
-
-### start
-Events of type *start* define that a new sequence of data events will follow, along with the fields that may be plotted and their grouping. A group is a category for splitting the same variable into different series.
-
-Example:
 ```
-{type: 'start', timestamp: 1519780251293, select: ['min_response_time', 'max_response_time'], group: ['os', 'browser']}
-```
-The above event defines that, for each different value of the pair (os, browser), we may plot two lines: one that represents the minimum response time, and one that represents the maximum response time. That is: if there are two different values for os and two different values for browser, we should have 8 different lines plotted.
-
-### span
-Events of type *span* define what is the visible date range for the chart. A new event of this type may make the chart update its boundaries.
-
-Example:
-```
-{type: 'span', timestamp: 1519780251293, begin: 1519780251293, end: 1519780260201}
-```
-This event defines that the data should be plotted inside the interval between the begin and end values, that is, timestamps 1519780251293 and 1519780260201, respectivelly. All data outside this range may be ignored.
-
-### stop
-Events of type *stop* define that no more data events will follow.
-A *stop* event is generated after loading a static timespan in the past, or if the user explicitly stops the query. If the chart consumes real time data, it might never be generated.
-Any events that eventually follow a *stop* event should be ignored, except for a new *start*, which would imply the creation of a new chart.
-
-Example:
-```
-{type: 'stop', timestamp: 1519780251293}
+npm install
 ```
 
-### data
-Events of type *data* define the content that might be displayed on the chart.
+## Running application
 
-Example
 ```
-{type: 'data', timestamp: 1519780251000, os: 'linux', browser: 'chrome', min_response_time: 0.1, max_response_time: 1.3}
+npm start
 ```
 
-> Note that absent data values for the fields defined by *select* and *group* also generate new series. On the other hand, fields that are not defined should be ignored.
+## Running tests
 
-## The challenge
+```
+npm test
+```
 
-We expect you to:
+## Notes
 
-* Provide an input on the user interface to allow plotting different sequences of events;
-* Based on an arbitrary sequence of events, plot the chart that represents the output for that sequence;
-* Follow the layout indication provided on the prototype below;
-* Write tests;
-* Suggest and implement a protection for this application to deal with huge amount of data;
-* Justify design choices, arguing about costs and benefits involved. You may write those as comments inline or, if you wish, provide a separate document summarizing those choices;
-* Write all code and documentation in english
+I would like to point out some details about the user's input.
 
-![challenge_frontend](https://github.com/intelie/challenge-chart-plot/raw/master/challenge_frontend.png "Expected user interface")
+### As an array
 
-Although you can choose any graphical library to plot the chart, we suggest that you use a declarative JS framework to build the application such as ReactJS.
+I understand events not being inside an array, since they not necessarily would arrive as a single data (in only one request). Therefore, in my implementation of the ```inputParser()``` (function responsible for mapping the input to the JSON array) I splitted the user's input by lines: each line corresponds to a JSON and consequently to an event.
 
-## Solve this challenge
+### As valid JSONs
 
-To solve this challenge, you may fork this repository, then
-send us a link with your implementation. Alternatively, if you do not want to have this repo on
-your profile (we totally get it), send us a
-[git patch file](https://www.devroom.io/2009/10/26/how-to-create-and-apply-a-patch-with-git/)
-with your changes.
+In the challenge's prototype, the user's input example did not corresponded to a valid JSON: using single quotes for strings (instead of double quotes) and with no quotes in the object properties.
 
-There is no unique solution to this challenge. The intent is to evaluate candidate's ability and familiarity with tools and best practices.
+- Valid JSON:
+```json
+{"type": "span", "timestamp": 1519862400000, "begin": 1519862400000, "end": 1519862460000}
+```
 
-If you are already in the hiring process, you may send it to whoever is your contact at Intelie. If you wish to apply for a job at Intelie, please send your solution to [trabalhe@intelie.com.br](mailto:trabalhe@intelie.com.br).
+- Prototype's example:
+```javascript
+{type: 'span', timestamp: 1519862400000, begin: 1519862400000, end: 1519862460000}
+```
 
+So, to fit my solution to the prototype, I added to the ```inputParser()``` function, an extra parameter: the **unsafe** flag. If the ```unsafe = true```, it uses the ```eval()``` to parse the string, rather than the ```JSON.parse()```. With the **eval**, I can parse strings such as the above.
 
+However, if the example in the prototype is wrong and the input will actually come as a valid JSON, I strongly suggest **not using** the unsafe flag. It would require to replace the ```inputParser()``` call in the "Main" component:
 
+```javascript
+// Remove the second param since the default value is false.
+const eventList = inputParser(input, true); // src/containers/Main/Main.js  (line 48)
+```
