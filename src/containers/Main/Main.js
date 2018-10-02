@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import './Main.css';
 
+import { withAlert } from 'react-alert';
+
 import TextEditor from '../../components/TextEditor/TextEditor';
 import LineChart from '../../components/LineChart/LineChart';
 import Button from '../../components/UI/Button/Button';
 
 import inputParser from './Utils/inputParser';
 import EventsProcessor from './Utils/EventsProcessor';
+
+import errorAlertHOC from '../../hoc/errorAlertHOC';
 
 class Main extends Component {
   constructor(props) {
@@ -24,13 +28,13 @@ class Main extends Component {
 
   generateChart() {
     const { input } = this.state;
+    const { alert } = this.props;
     try {
       const eventList = inputParser(input, false);
       const series = (new EventsProcessor(eventList)).requestSeries();
       this.setState({ series });
-    } catch (error) {
-      console.log(error);
-      this.setState({ error: true });
+    } catch (e) {
+      e.errors.forEach(message => alert.show(<div style={{ fontSize: '12px' }}>{message}</div>));
     }
   }
 
@@ -59,4 +63,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default errorAlertHOC(withAlert(Main));

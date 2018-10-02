@@ -1,10 +1,18 @@
 class ParseException {
   constructor(message) {
-    this.message = message;
+    this.errors = [message];
     this.name = 'ParseException';
+  }
+}
+
+class EventProcessorException {
+  constructor(errors) {
+    this.errors = errors;
+    this.name = 'EventProcessorException';
   }
 }
 
 export {
   ParseException,
+  EventProcessorException,
 };
