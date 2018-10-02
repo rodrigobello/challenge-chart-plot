@@ -1,3 +1,8 @@
+/**
+ * Custom configuration for the highcharts line chart to better match it to
+ * the chart displayed in the challenge prototype.
+ */
+
 function colorfulLabel() {
   return `<span style="color:${this.color};">${this.name}</span>`;
 }

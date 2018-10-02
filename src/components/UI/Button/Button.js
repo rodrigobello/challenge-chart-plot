@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './Button.css';
 
 /**
- * Pre-customized button to be reused.
+ * Custom button ready to be reused not only in this application, but also in future ones.
  */
 const Button = ({
   color,

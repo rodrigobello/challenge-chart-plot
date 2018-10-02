@@ -8,6 +8,18 @@ const capitalizeString = str => str.toLowerCase()
 
 const formatString = str => capitalizeString(str.split('_').join(' '));
 
+
+/**
+ * This is the event processor: it receives a sequence of events in its constructor
+ * (as an array of objects) and iterate through them processing each one individually
+ * (based on the event type).
+ *
+ * @class
+ * @param {Object[]}   events   Array with the sequence of events.
+ *
+ * @throws {EventProcessorException}   Throw if any processing problem is detected.
+ * @return {Object}   The instance of the EventProcessor class.
+ */
 export default class EventsProcessor {
   constructor(events) {
     this.process = {

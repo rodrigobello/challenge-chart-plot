@@ -13,6 +13,12 @@ import EventsProcessor from '../../lib/EventsProcessor';
 
 import errorAlertHOC from '../../hoc/errorAlertHOC';
 
+/**
+ * This is the main component and it is responsible for maintaining the entire
+ * state of theapplication, preventing the app state tree from becoming too
+ * complex and also making it easy, if necessary, to implement a state management
+ * library (like redux).
+ */
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -27,6 +33,14 @@ class Main extends Component {
     this.setState({ input });
   }
 
+  /**
+   * If the event sequence was obtained through a GET request to an API,
+   * rather than by user input, this method would consume that API, by
+   * calling it and mapping the data to the component state.
+   *
+   * Instead, it only get the already stored user input and parse it to
+   * a valid JSON, using the inputParser() function.
+   */
   generateChart() {
     const { input } = this.state;
     const { alert } = this.props;

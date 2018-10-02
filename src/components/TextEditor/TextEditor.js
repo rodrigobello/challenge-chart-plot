@@ -25,6 +25,12 @@ const resizableOptions = {
   topLeft: false,
 };
 
+
+/**
+ * This component use the react-codemirror dependency to render a text editor area where
+ * the user can input the sequence of events. The component is also wrapped inside the
+ * re-resizable dependency,making it resizable to better match the user needs.
+ */
 const TextEditor = ({ handleCharacterInput }) => {
   const options = {
     lineNumbers: true,
